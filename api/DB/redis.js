@@ -1,11 +1,7 @@
-const { Redis } = require('redis')
-const redisClient = () => {
-    if (process.env.REDIS_URL) {
-        console.log('redis connected');
-        return process.env.REDIS_URL
-    }
-    throw new Error('Redis connection failed')
+const { Redis } = require("@upstash/redis")
 
-}
-
-export const redis = new Redis(redisClient())
+const redis = new Redis({
+    url: "https://strong-rabbit-48805.upstash.io",
+    token: "Ab6lAAIjcDExMmYzZmJlMmVkYzQ0ZjNlYjMyZjFiM2I4N2FmMzdhYXAxMA",
+  })
+module.exports = {redis};

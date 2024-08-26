@@ -1,27 +1,30 @@
 const jwt = require("jsonwebtoken");
-const User = require("../../model/User");
+const { error } = require("../../utils/error");
+const { redis } = require("../../DB/redis");
 
 const authMiddleware = async (req, res, next) => {
-    try {
-        let token = req.headers.authorization
-        if (!token) return res.status(400).send({ message: 'Unauthenticate user' })
-        token = token.split(" ")[1]
-        const decode = jwt.verify(token, "privateKey");
-        const validUser = await User.findById(decode.id);
-        const userInfo = {
-            _id: validUser._id,
-            username: validUser.username,
-            email: validUser.email,
-            avatar: validUser.avatar,
-            role: validUser.role
-        }
-        if (!validUser) return res.status(400).send({ message: 'Unauthenticate user' })
-        req.user = userInfo;
-        next()
-    } catch (err) {
-        next(err)
-    }
+  try {
+    // let token = req.headers.authorization
+    const token = req.cookies.refresh_token;
+    const decode = jwt.verify(token, process.env.REFRESH_TOKEN_KEY);
+    if (!decode) throw error("invalid token", 400);
+    const validUser = await redis.get(`"${decode._id}"`);
+    if (!validUser)
+      return res
+        .status(400)
+        .send({ success: false, message: "Unauthenticate user" });
+    const userInfo = {
+      _id: validUser._id,
+      username: validUser.username,
+      email: validUser.email,
+      avatar: validUser.avatar,
+      role: validUser.role,
+    };
+    req.user = userInfo;
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
 
-}
-
-module.exports = authMiddleware
+module.exports = authMiddleware;
