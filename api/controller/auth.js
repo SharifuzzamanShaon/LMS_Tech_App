@@ -164,7 +164,6 @@ const googleAuth = async (req, res, next) => {
   }
 };
 
-
 const foregtPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
