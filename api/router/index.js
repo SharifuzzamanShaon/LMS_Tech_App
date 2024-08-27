@@ -11,7 +11,7 @@ const authMiddleware = require("../middleware/authenticate/authMiddleware");
 router.use("/auth", authRouter);
 router.use("/user", userRouter);
 router.use("/profile", authMiddleware, accessProfile);
-router.use("/course-admin", courseRouter);
+router.use("/course", courseRouter);
 router.use("/products", productRouter);
 router.use("/product/category", categoryRouter);
 

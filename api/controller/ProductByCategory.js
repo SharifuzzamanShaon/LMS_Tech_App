@@ -1,6 +1,5 @@
 const { Category, Subcatagories } = require("../model/CategoryModel");
 const Product = require("../model/ProductModel");
-const error = require("../utils/error");
 
 const getProductByCategory = async (req, res, next) => {
   const { categoryId } = req.params;
