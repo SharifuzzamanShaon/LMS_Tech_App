@@ -1,6 +1,6 @@
-const { profileAccess } = require("../controller/user")
+const { profileAccess } = require("../controller/user");
 
-const router = require("express").Router()
+const router = require("express").Router();
 
-router.get("/", profileAccess)
-module.exports = router
+router.get("/", profileAccess);
+module.exports = router;

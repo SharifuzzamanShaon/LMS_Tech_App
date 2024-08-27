@@ -67,7 +67,7 @@ const courseSchema = new mongoose.Schema({
   thumbnail: {
     public_id: {
       type: String,
-    //   required: true,
+      //   required: true,
     },
     url: {
       type: String,
