@@ -26,10 +26,7 @@ const UserSchema = new mongoose.Schema(
       enum: ["admin", "manager", "user"],
       default: "user",
     },
-    regCourses: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Courses",
-    },
+    regCourses: [{ courseId: String }],
     isVerified: {
       type: Boolean,
       default: false,

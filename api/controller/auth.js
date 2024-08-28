@@ -76,14 +76,7 @@ const login = async (req, res, next) => {
     if (!user) throw error("user not found", 204);
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) throw error("Password not match", 401);
-    let payload = {
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      avatar: user.avatar,
-      role: user.role,
-    };
-
+    let payload = user.toObject();
     await redis.set(payload._id, payload);
     sendToken(payload, 200, res, next);
   } catch (err) {
@@ -163,7 +156,6 @@ const googleAuth = async (req, res, next) => {
     next(err);
   }
 };
-
 
 const foregtPassword = async (req, res, next) => {
   try {
