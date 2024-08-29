@@ -1,10 +1,12 @@
 const jwt = require("jsonwebtoken");
 
-const sendToken = async (payload, status, res, next) => {
+const sendToken = async (user, status, res, next) => {
   try {
     const accessTokenExpire = parseInt(process.env.ACCESS_TOKEN_EXPIRE);
     const refreshTokenExpire = parseInt(process.env.REFRESH_TOKEN_EXPIRE);
-
+    const payload = {
+      _id: user._id,
+    };
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_KEY, {
       expiresIn: `${accessTokenExpire}h`,
     });
@@ -27,7 +29,7 @@ const sendToken = async (payload, status, res, next) => {
     };
     res.cookie("access_token", accessToken, accessTokenOption);
     res.cookie("refresh_token", refreshToken, refreshTokenOption);
-    res.status(status).send({ success: true, payload, accessToken });
+    res.status(status).send({ success: true, user, accessToken });
   } catch (error) {
     next(error);
   }
