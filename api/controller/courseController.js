@@ -1,5 +1,6 @@
 const { redis } = require("../DB/redis");
 const { CourseModel } = require("../model/course.model");
+const { error } = require("../utils/error");
 const { uploadOnCloudinary } = require("../utils/FileUpload");
 const fs = require("fs");
 const uploadCourse = async (req, res, next) => {
@@ -66,8 +67,27 @@ const getSingleCourse = async (req, res, next) => {
     next(error);
   }
 };
+const getCourseByUser = async (req, res, next) => {
+  try {
+    let courseId = req.params.id;
+    const userCourseList = req.user?.regCourses;
+    const courseExist = userCourseList.find((item) => item._id === courseId);
+    console.log(courseExist);
+
+    if (!courseExist) {
+      throw error("Not elegible for access this course", 403);
+    } else {
+      const course = await CourseModel.findById(courseId);
+      const content = course?.courseData;
+      res.status(200).send({ success: true, content });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   uploadCourse,
   editCourse,
   getSingleCourse,
+  getCourseByUser,
 };
