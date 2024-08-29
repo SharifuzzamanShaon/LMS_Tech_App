@@ -76,9 +76,8 @@ const login = async (req, res, next) => {
     if (!user) throw error("user not found", 204);
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) throw error("Password not match", 401);
-    let payload = user.toObject();
-    await redis.set(payload._id, payload);
-    sendToken(payload, 200, res, next);
+    await redis.set(user._id, JSON.stringify(user));
+    sendToken(user, 200, res, next);
   } catch (err) {
     next(err);
   }
