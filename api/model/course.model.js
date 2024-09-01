@@ -1,5 +1,18 @@
 const { default: mongoose } = require("mongoose");
 
+const questionSchema = new mongoose.Schema({
+  user: Object,
+  question: String,
+  questionReplies: [Object],
+});
+const reviewSchema = new mongoose.Schema({
+  user: Object,
+  rating: {
+    type: Number,
+    default: 0,
+  },
+  reviews: String,
+});
 const courseDataSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -32,21 +45,7 @@ const courseDataSchema = new mongoose.Schema({
   links: {
     type: String,
   },
-  questions: {
-    type: String,
-    // required: true
-  },
-});
-const reviewSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  rating: {
-    type: Number,
-    default: 0,
-  },
-  reviews: String,
+  questions: [questionSchema],
 });
 const courseSchema = new mongoose.Schema({
   name: {
