@@ -1,7 +1,6 @@
-function error(msg, statusCode) {
-  const e = new Error();
-  e.message = msg;
-  e.status = statusCode;
+function error(msg = 'Something error occured', status = 500) {
+  const e = new Error(msg)
+  e.status = status
   return e;
 }
 function authorizationError() {

@@ -47,12 +47,10 @@ app.use("/api", useRouter);
 
 app.use("/api/v1", router);
 
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || "Internal server error";
-  return res
-    .status(statusCode)
-    .json({ success: false, statusCode, message: message });
+app.use((error, req, res, text) => {
+  const message = error.message ? error.message : "Server Error Occured";
+  const status = error.status ? error.status : 500;
+  res.status(status).send({ success: false, message });
 });
 
 const port = 6000;
