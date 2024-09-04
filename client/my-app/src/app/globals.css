@@ -15,17 +15,21 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
+/* .h-full {
+  height: 100%;
+  background-color: #00000059;
+} */
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
-
+.hero_animation {
+  background-image: Linear-gradient(
+    147.92deg,
+    (239, 76%, 53%, 0.456) 10.41%,
+    (0, 0%, 100%, 0) 89.25%
+  );
+  animation: changeBackgroundColor 8s infinite alternate; 
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;

@@ -50,7 +50,7 @@ app.use("/api/v1", router);
 app.use((error, req, res, text) => {
   const message = error.message ? error.message : "Server Error Occured";
   const status = error.status ? error.status : 500;
-  res.status(status).send({ success: false, message });
+  res.status(status).json({ success: false, message });
 });
 
 const port = 6000;
