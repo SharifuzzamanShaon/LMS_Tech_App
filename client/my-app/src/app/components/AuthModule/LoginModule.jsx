@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import FormControl from "@mui/material/FormControl";
-import "../../utils/styles/style";
 import { FaGoogle } from "react-icons/fa";
+import { style } from "../../utils/styled/style"
 import * as Yup from "yup";
 import {
   Button,
@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { BiHide, BiShow } from "react-icons/bi";
-import { style } from "../../utils/styles/style";
 
 const Schema = Yup.object().shape({
   email: Yup.string()

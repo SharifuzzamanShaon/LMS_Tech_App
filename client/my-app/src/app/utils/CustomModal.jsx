@@ -1,3 +1,4 @@
+"use client"
 import { Box, Modal, Typography } from "@mui/material";
 import React, { useState } from "react";
 import LoginModule from "../components/AuthModule/LoginModule";

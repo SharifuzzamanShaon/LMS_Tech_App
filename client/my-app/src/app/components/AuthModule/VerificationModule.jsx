@@ -1,7 +1,7 @@
 "use client";
-import { style } from "../../utils/styles/style";
 import React, { useRef, useState } from "react";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
+import { style } from "../../utils/styled/style";
 
 const VerificationModule = () => {
   const [invalidError, setInvalidError] = useState();

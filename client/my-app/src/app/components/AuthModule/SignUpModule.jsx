@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { style } from "../../utils/styles/style";
+import { style } from "../../utils/styled/style";
 import FormControl from "@mui/material/FormControl";
 import { FaGoogle } from "react-icons/fa";
 import * as Yup from "yup";

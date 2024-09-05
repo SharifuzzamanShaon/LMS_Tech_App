@@ -1,9 +1,0 @@
-.input-underline::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-bottom: 2px solid hwb(0 16% 11% / 0.664);
-    width: 100%;
-  }
