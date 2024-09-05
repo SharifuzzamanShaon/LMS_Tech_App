@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import NavItems from "../utils/NavItems";
 import ThemeSwitcher from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
+import CustomModal from "../utils/CustomModal";
 const Header = ({ open, activeItem, setOpen }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -68,7 +69,7 @@ const Header = ({ open, activeItem, setOpen }) => {
             id="screen"
           >
             <div className="w-[70%] fixed z-[9999999999] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0">
-            <Link
+              <Link
                 href={"/"}
                 className={`text-[20px] pt-5 ml-5 font-Poppins font-500 text-black dark:text-white`}
               >
@@ -80,14 +81,17 @@ const Header = ({ open, activeItem, setOpen }) => {
                 className="cursor-pointer ml-5 dark:text-white text-black"
                 onClick={() => setOpen(true)}
               />
-              <br/>
-              <br/>
-              <br/>
-              <p className="text-[16px] px-2 pl-5 dark:text-white text-black">Copyright 2024 </p>
+              <br />
+              <br />
+              <br />
+              <p className="text-[16px] px-2 pl-5 dark:text-white text-black">
+                Copyright 2024{" "}
+              </p>
             </div>
           </div>
         )}
       </div>
+      <>{open && <CustomModal open={open} setOpen={setOpen}></CustomModal>}</>
     </div>
   );
 };

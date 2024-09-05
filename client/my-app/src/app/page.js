@@ -14,9 +14,12 @@ const page = () => {
         description="This is a learning paltform"
         keywords="Programming, MERN, C#, Laravel, React JS"
       ></Heading>
-      <Header open={open} activeItem={activeItem} setOpen={setOpen}></Header>
-      <HeroSection/>
-      
+      <Header
+        open={open}
+        activeItem={activeItem}
+        setOpen={setOpen}
+      ></Header>
+      <HeroSection />
     </div>
   );
 };
