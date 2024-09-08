@@ -21,13 +21,17 @@ const Schema = Yup.object().shape({
   password: Yup.string().required("Please Enter your password").min(6),
 });
 const SignUpModule = ({ route, setRoute }) => {
-  const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
+  // const [signupInfo, setSignupInfo] = useState({ email: "", password: "" });
+  const [errorUsername, setErrorUsername] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: Schema,
-    onSubmit: async (...loginInfo) => {
-      console.log(loginInfo);
+    onSubmit: async (...signupInfo) => {
+      if (!errors.username) {
+        setErrorUsername(true);
+      }
     },
   });
   const { errors, touched, values, handleChange, handleSubmit } = formik;
@@ -35,7 +39,7 @@ const SignUpModule = ({ route, setRoute }) => {
   return (
     <>
       <form
-        onSubmit={formik.handleSubmit}
+        onSubmit={handleSubmit}
         className="space-y-4 p-4 max-w-md mx-auto font-Poppins"
       >
         <FormControl fullWidth variant="outlined">
@@ -48,7 +52,7 @@ const SignUpModule = ({ route, setRoute }) => {
             Username
           </InputLabel>
           <Input
-            type="username"
+            type="text"
             className={"dark:text-white text-black"}
             id="username"
             value={values.username}
@@ -60,9 +64,13 @@ const SignUpModule = ({ route, setRoute }) => {
             id="email-helper-text"
             className="dark:text-white text-black"
           >
-            <span className="text-red-600">
-              {errors.username && errors.username}
-            </span>
+             {errors.username && touched.username ? (
+                <span className="text-red-600">
+                  {errors.username}
+                </span>
+              ) : (
+                <span>Insert an Username</span>
+              )}
           </FormHelperText>
         </FormControl>
         <FormControl fullWidth variant="outlined">
@@ -87,7 +95,13 @@ const SignUpModule = ({ route, setRoute }) => {
             id="email-helper-text"
             className="dark:text-white text-black"
           >
-            <span className="text-red-600">{errors.email && errors.email}</span>
+             {errors.email && touched.email ? (
+                <span className="text-red-600">
+                  {errors.email}
+                </span>
+              ) : (
+                <span>Email address </span>
+              )}
           </FormHelperText>
         </FormControl>
         <div>
@@ -126,9 +140,9 @@ const SignUpModule = ({ route, setRoute }) => {
               id="password-helper-text"
               className="dark:text-white text-black"
             >
-              {errors.password ? (
+              {errors.password && touched.password ? (
                 <span className="text-red-600">
-                  {errors.password && errors.password}
+                  {errors.password}
                 </span>
               ) : (
                 <span>Mnimum 6 charecter</span>
@@ -137,7 +151,7 @@ const SignUpModule = ({ route, setRoute }) => {
           </FormControl>
         </div>
         <Stack spacing={2} direction="row">
-          <Button type="submit" variant="contained" color="primary" onClick={()=>setRoute("verify")}>
+          <Button type="submit" variant="contained" color="primary">
             Sign-Up
           </Button>
           <Button variant="contained" color="secondary">

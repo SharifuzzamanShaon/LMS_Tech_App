@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import FormControl from "@mui/material/FormControl";
 import { FaGoogle } from "react-icons/fa";
-import { style } from "../../utils/styled/style"
+import { style } from "../../utils/styled/style";
 import * as Yup from "yup";
 import {
   Button,
@@ -27,6 +27,8 @@ const LoginModule = ({ route, setRoute }) => {
     initialValues: { email: "", password: "" },
     validationSchema: Schema,
     onSubmit: async (...loginInfo) => {
+      if (!loginInfo.email) {
+      }
       console.log(loginInfo);
     },
   });
@@ -35,13 +37,16 @@ const LoginModule = ({ route, setRoute }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-md mx-auto font-Poppins">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 p-4 max-w-md mx-auto font-Poppins"
+      >
         <FormControl fullWidth variant="outlined">
           <InputLabel
             htmlFor="email"
-            className={`${
-              errors.email && touched.email && "text-red-600"
-            } ${style.title}`}
+            className={`${errors.email && touched.email && "text-red-600"} ${
+              style.title
+            }`}
           >
             Email address
           </InputLabel>
@@ -58,9 +63,11 @@ const LoginModule = ({ route, setRoute }) => {
             id="email-helper-text"
             className="dark:text-white text-black"
           >
-            <span className="text-red-600">
-              {errors.email && errors.email}
-            </span>
+            {errors.email && touched.email ? (
+              <span className="text-red-600">{errors.email}</span>
+            ) : (
+              <span>Valid Email</span>
+            )}
           </FormHelperText>
         </FormControl>
         <div>
@@ -99,13 +106,14 @@ const LoginModule = ({ route, setRoute }) => {
               id="password-helper-text"
               className="dark:text-white text-black"
             >
-              {errors.password ? (
-                <span className="text-red-600">
-                  {errors.password && errors.password}
-                </span>
-              ) : (
-                <span>Mnimum 6 charecter</span>
-              )}
+              <div className="flex flex-col">
+                {errors.password && touched.password ? (
+                  <span className="text-red-600">{errors.password}</span>
+                ) : (
+                  <span>Mnimum 6 charecter</span>
+                )}
+              </div>
+              <p>Forget Password</p>
             </FormHelperText>
           </FormControl>
         </div>
@@ -118,7 +126,7 @@ const LoginModule = ({ route, setRoute }) => {
             className="hyper cursor-pointer text-blue-800 dark:border-b-slate-100 border-b border-blue-800"
             onClick={() => setRoute("signUp")}
           >
-           {"  "} Sign-up
+            {"  "} Sign-up
           </span>
         </p>
       </form>
