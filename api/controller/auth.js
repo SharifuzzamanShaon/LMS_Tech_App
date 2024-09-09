@@ -73,7 +73,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) throw error("email and password is required", 400);
     const user = await User.findOne({ email: email });
-    if (!user) throw error("user not found", 204);
+    if (!user) throw error("user not found", 404);
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) throw error("Password not match", 401);
     await redis.set(user._id, JSON.stringify(user));
@@ -160,7 +160,7 @@ const foregtPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
     let userExist = await User.findOne({ email: email });
-    if (!userExist) throw error("user not found", 204);
+    if (!userExist) throw error("user not found", 404);
     const payload = {
       username: userExist.username,
       email: userExist.email,
@@ -205,7 +205,7 @@ const resetPassword = async (req, res, next) => {
 
       if (!email || !token) throw error("invalid credentials", 401);
       const validUser = await User.findOne({ email: email });
-      if (!validUser) throw error("user not found", 204);
+      if (!validUser) throw error("user not found", 404);
       const validTimeToReset =
         new Date() < new Date(validUser.resetPasswordExpires);
       if (!validTimeToReset) throw error("token expired, try again", 401);
@@ -271,7 +271,7 @@ const confirmVerification = async (req, res, next) => {
         const token = req.query.token
         if (!email || !token) throw error("invalid credentials", 401)
         const validUser = await User.findOne({ email: email })
-        if (!validUser) throw error("user not found", 204)
+        if (!validUser) throw error("user not found", 404)
         if (validUser.verificationToken != token) throw error("invalid token, try again", 401)
         await User.findOneAndUpdate({ email: validUser.email }, { isVerified: true })
         return res.status(200).send({ messgae: "Account verification success" })
