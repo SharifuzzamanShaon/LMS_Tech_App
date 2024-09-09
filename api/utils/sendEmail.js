@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
+const { error } = require("../utils/error");
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -11,12 +12,16 @@ const transporter = nodemailer.createTransport({
   },
 });
 const sendEmail = async (to, subject, body) => {
-  transporter.sendMail({
-    from: process.env.FROM_EMAIL,
-    to: to,
-    subject: subject,
-    html: body,
-  });
+  try {
+    transporter.sendMail({
+      from: process.env.FROM_EMAIL,
+      to: to,
+      subject: subject,
+      html: body,
+    });
+  } catch (err) {
+    throw error("Internal server error", 500);
+  }
 };
 module.exports = sendEmail;
 /**
