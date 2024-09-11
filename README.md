@@ -50,4 +50,11 @@ A modern learning management system built with Node.js, Next.js, MongoDB, and Re
 
     ACCESS_TOKEN_EXPIRE = 5 # define the hours
     REFRESH_TOKEN_EXPIRE = 3 # define the day
-  
+
+  ### Frontend
+**Start the Frontend Application**
+
+    
+    cd client/my-app
+    npm run dev
+
