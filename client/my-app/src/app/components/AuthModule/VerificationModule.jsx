@@ -1,11 +1,13 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { style } from "../../utils/styled/style";
 import { Button } from "@mui/material";
+import { useActivationMutation } from "../../../../redux/features/auth/authApi";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
-const VerificationModule = () => {
-  const [invalidError, setInvalidError] = useState();
+const VerificationModule = ({ route, setRoute }) => {
   const [varifyNumber, setVarifyNumber] = useState({
     0: "",
     1: "",
@@ -14,6 +16,21 @@ const VerificationModule = () => {
   });
   console.log(varifyNumber);
 
+  const [activation, { isError, isSuccess, data, error }] =
+    useActivationMutation();
+  const { token } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Account activation success");
+      setRoute("login");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errData = error;
+        toast.error(errData.data.message);
+      }
+    }
+  }, [isSuccess, error]);
   const inputRefs = [
     useRef < HTMLInputElement > null,
     useRef < HTMLInputElement > null,
@@ -29,8 +46,10 @@ const VerificationModule = () => {
       inputRefs[index + 1].current?.focus();
     }
   };
-  const handleSubmit = () => {
-    console.log(varifyNumber);
+  const handleSubmit = async () => {
+    const activationCode = Object.values(varifyNumber).join("");
+    const activationToken = token;
+    await activation({ activationToken, activationCode });
   };
   return (
     <>

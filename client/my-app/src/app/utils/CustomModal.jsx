@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Box, Modal, Typography } from "@mui/material";
 import React, { useState } from "react";
 import LoginModule from "../components/AuthModule/LoginModule";
@@ -28,7 +28,11 @@ const CustomModal = ({ open, setOpen }) => {
           <Typography sx={{ mt: 2 }}>
             <div>
               {route === "login" && (
-                <LoginModule route={route} setRoute={setRoute} />
+                <LoginModule
+                  route={route}
+                  setRoute={setRoute}
+                  setOpen={setOpen}
+                />
               )}
               {route === "signUp" && (
                 <SignUpModule route={route} setRoute={setRoute} />

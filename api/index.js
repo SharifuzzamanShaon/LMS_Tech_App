@@ -10,13 +10,13 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const authMiddleware = require("./middleware/authenticate/authMiddleware");
 
-app.use(cors());
+
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors({
+  origin: 'http://localhost:3000',  // This should match the address of your frontend
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,  // Enable this if you need to handle cookies
+}));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -40,7 +40,7 @@ app.get("/show", (req, res) => {
   const data = {
     name: "Json Roy",
   };
-  res.render("mail/welcome", data);
+  res.send("Hii");
 });
 
 app.use("/api", useRouter);
@@ -53,9 +53,9 @@ app.use((error, req, res, text) => {
   res.status(status).json({ success: false, message });
 });
 
-const port = 6000;
+const port = 5000;
 app.listen(port, async () => {
-  console.log("server Running at http://localhost:6000");
+  console.log("server Running at http://localhost:5000");
   await connectDB();
   console.log("DB connected");
 });

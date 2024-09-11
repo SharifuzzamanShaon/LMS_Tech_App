@@ -13,8 +13,10 @@ const { json } = require("body-parser");
 require("dotenv").config();
 
 const register = async (req, res, next) => {
-  const { username, email, password } = req.body;
   try {
+    const { username, email, password } = req.body;
+    if (!username || !email || !password)
+      throw error("email and password is required", 400);
     const isExists = await User.findOne({ email: email });
     if (isExists) {
       return res.status(409).send({ message: "user already exists" });
@@ -201,7 +203,6 @@ const resetPassword = async (req, res, next) => {
     if (queryString) {
       const email = req.query.email;
       const token = req.query.token;
-      console.log(email, token);
 
       if (!email || !token) throw error("invalid credentials", 401);
       const validUser = await User.findOne({ email: email });
@@ -212,7 +213,6 @@ const resetPassword = async (req, res, next) => {
       if (validUser.resetPasswordToken != token)
         throw error("invalid token, try again", 401);
       const { newPassword } = req.body;
-      console.log(newPassword);
       const hash = await bcrypt.hash(newPassword, saltRounds);
       await User.findOneAndUpdate(
         { email: validUser.email },

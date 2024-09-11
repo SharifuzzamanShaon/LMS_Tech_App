@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { style } from "../../utils/styled/style";
 import FormControl from "@mui/material/FormControl";
 import { FaGoogle } from "react-icons/fa";
@@ -13,6 +13,9 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { BiHide, BiShow } from "react-icons/bi";
+import { useRegisterMutation } from "../../../../redux/features/auth/authApi";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 const Schema = Yup.object().shape({
   username: Yup.string().required("Need an unique username"),
   email: Yup.string()
@@ -21,21 +24,30 @@ const Schema = Yup.object().shape({
   password: Yup.string().required("Please Enter your password").min(6),
 });
 const SignUpModule = ({ route, setRoute }) => {
-  // const [signupInfo, setSignupInfo] = useState({ email: "", password: "" });
-  const [errorUsername, setErrorUsername] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const formik = useFormik({
-    initialValues: { email: "", password: "" },
-    validationSchema: Schema,
-    onSubmit: async (...signupInfo) => {
-      if (!errors.username) {
-        setErrorUsername(true);
+  const [register, { isError, data, error, isSuccess }] = useRegisterMutation();
+  useEffect(() => {
+    if (isSuccess) {
+      const msg = data?.message || "Registration Successful";
+      toast.success(msg);
+    }
+    if (error) {
+      if ("data" in error) {
+        const errData = error;
+        toast.error(errData.data.message);
       }
+    }
+  }, [isSuccess, error]);
+  const formik = useFormik({
+    initialValues: { username: "", email: "", password: "" },
+    validationSchema: Schema,
+    onSubmit: async (signupInfo) => {
+      console.log(signupInfo);
+      await register(signupInfo);
+      setRoute("verify")
     },
   });
   const { errors, touched, values, handleChange, handleSubmit } = formik;
-
   return (
     <>
       <form
@@ -64,13 +76,11 @@ const SignUpModule = ({ route, setRoute }) => {
             id="email-helper-text"
             className="dark:text-white text-black"
           >
-             {errors.username && touched.username ? (
-                <span className="text-red-600">
-                  {errors.username}
-                </span>
-              ) : (
-                <span>Insert an Username</span>
-              )}
+            {errors.username && touched.username ? (
+              <span className="text-red-600">{errors.username}</span>
+            ) : (
+              <span>Insert an Username</span>
+            )}
           </FormHelperText>
         </FormControl>
         <FormControl fullWidth variant="outlined">
@@ -95,13 +105,11 @@ const SignUpModule = ({ route, setRoute }) => {
             id="email-helper-text"
             className="dark:text-white text-black"
           >
-             {errors.email && touched.email ? (
-                <span className="text-red-600">
-                  {errors.email}
-                </span>
-              ) : (
-                <span>Email address </span>
-              )}
+            {errors.email && touched.email ? (
+              <span className="text-red-600">{errors.email}</span>
+            ) : (
+              <span>Email address </span>
+            )}
           </FormHelperText>
         </FormControl>
         <div>
@@ -141,9 +149,7 @@ const SignUpModule = ({ route, setRoute }) => {
               className="dark:text-white text-black"
             >
               {errors.password && touched.password ? (
-                <span className="text-red-600">
-                  {errors.password}
-                </span>
+                <span className="text-red-600">{errors.password}</span>
               ) : (
                 <span>Mnimum 6 charecter</span>
               )}
@@ -155,7 +161,7 @@ const SignUpModule = ({ route, setRoute }) => {
             Sign-Up
           </Button>
           <Button variant="contained" color="secondary">
-            Google <FaGoogle />
+           {" "} <FaGoogle />
           </Button>
         </Stack>
         <p className="dark:text-white text-black">
