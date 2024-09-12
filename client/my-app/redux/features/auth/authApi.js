@@ -41,12 +41,13 @@ export const authApi = apiSlice.injectEndpoints({
           email,
           password,
         },
+        credentials: "include",
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
           console.log(res);
-          
+
           dispatch(
             userloggedIn({
               accessToken: res.data.accessToken,

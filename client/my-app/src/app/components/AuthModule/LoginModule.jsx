@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import FormControl from "@mui/material/FormControl";
-import { FaGoogle } from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { style } from "../../utils/styled/style";
 import * as Yup from "yup";
 import {
@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 import { BiHide, BiShow } from "react-icons/bi";
 import { useLoginMutation } from "../../../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
 
 const Schema = Yup.object().shape({
   email: Yup.string()
@@ -29,6 +30,13 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
   useEffect(() => {
     if (isSuccess) {
       const msg = data.message || "Login Successful";
+      const userInfo = {
+        username: data.user.username,
+        email: data.user.email,
+        avatar: data.user.avatar,
+        _id: data.user._id,
+      };
+      localStorage.setItem("user", JSON.stringify(userInfo));
       toast.success(msg);
       setOpen(false);
     }
@@ -135,6 +143,10 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
         <Button type="submit" variant="contained" color="primary">
           Login
         </Button>
+        <div className="flex items-center justify-center">
+          <FcGoogle size={30} className="cursor-pointer mt-2" />
+          <FaGithub size={30} className="cursor-pointer ml-2 mt-2 text-black" />
+        </div>
         <p className="dark:text-white text-black">
           Don't have account ?{" "}
           <span

@@ -1,13 +1,21 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavItems from "../utils/NavItems";
 import ThemeSwitcher from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import CustomModal from "../utils/CustomModal";
+import { useSelector } from "react-redux";
+import Image from "next/image";
+
 const Header = ({ open, activeItem, setOpen }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [userInfo, setUserInfo] = useState()
+  const { user } = useSelector((state) => state.auth);
+  useEffect(()=>{
+    setUserInfo(user)
+  },[user])
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -53,11 +61,21 @@ const Header = ({ open, activeItem, setOpen }) => {
                 />
               </div>
               <div className="hidden lg:block">
-                <HiOutlineUserCircle
-                  size={25}
-                  className="cursor-pointer dark:text-white text-black"
-                  onClick={() => setOpen(true)}
-                />
+                {userInfo ? (
+                  <Image
+                    src={userInfo.avatar}
+                    alt=""
+                    width={30}
+                    height={30}
+                    className="rounded-full"
+                  />
+                ) : (
+                  <HiOutlineUserCircle
+                    size={25}
+                    className="cursor-pointer ml-5 dark:text-white text-black"
+                    onClick={() => setOpen(true)}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -76,11 +94,24 @@ const Header = ({ open, activeItem, setOpen }) => {
                 A-A-O
               </Link>
               <NavItems activeItem={activeItem} isMobile={true} />
-              <HiOutlineUserCircle
-                size={25}
-                className="cursor-pointer ml-5 dark:text-white text-black"
-                onClick={() => setOpen(true)}
-              />
+              <div>
+                {userInfo ? (
+                  <Image
+                    src={userInfo.avatar}
+                    alt=""
+                    width={30}
+                    height={30}
+                    className="rounded-full"
+                  />
+                ) : (
+                  <HiOutlineUserCircle
+                    size={25}
+                    className="cursor-pointer ml-5 dark:text-white text-black"
+                    onClick={() => setOpen(true)}
+                  />
+                )}
+              </div>
+
               <br />
               <br />
               <br />

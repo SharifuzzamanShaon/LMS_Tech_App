@@ -1,7 +1,7 @@
 "use client";
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./features/api/apiSlice";
-import  authSlice  from "./features/auth/authSlice";
+import authSlice from "./features/auth/authSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,3 +14,12 @@ export const store = configureStore({
     getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
+
+//call refreshToken fun in every page load
+const initilizeApp = async () => {
+  await store.dispatch(
+    apiSlice.endpoints.refreshToken.initiate({}, {forceRefetch: true})
+  );
+};
+
+initilizeApp();

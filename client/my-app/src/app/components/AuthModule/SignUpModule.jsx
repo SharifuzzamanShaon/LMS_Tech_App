@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { style } from "../../utils/styled/style";
 import FormControl from "@mui/material/FormControl";
-import { FaGoogle } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+
 import * as Yup from "yup";
 import {
   Button,
@@ -15,7 +17,6 @@ import { useFormik } from "formik";
 import { BiHide, BiShow } from "react-icons/bi";
 import { useRegisterMutation } from "../../../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 const Schema = Yup.object().shape({
   username: Yup.string().required("Need an unique username"),
   email: Yup.string()
@@ -30,6 +31,7 @@ const SignUpModule = ({ route, setRoute }) => {
     if (isSuccess) {
       const msg = data?.message || "Registration Successful";
       toast.success(msg);
+      setRoute("verify")
     }
     if (error) {
       if ("data" in error) {
@@ -44,7 +46,6 @@ const SignUpModule = ({ route, setRoute }) => {
     onSubmit: async (signupInfo) => {
       console.log(signupInfo);
       await register(signupInfo);
-      setRoute("verify")
     },
   });
   const { errors, touched, values, handleChange, handleSubmit } = formik;
@@ -156,14 +157,15 @@ const SignUpModule = ({ route, setRoute }) => {
             </FormHelperText>
           </FormControl>
         </div>
-        <Stack spacing={2} direction="row">
-          <Button type="submit" variant="contained" color="primary">
+        <div className="w-full mt-5">
+          <button type="submit" value="signup" className={`${style.button}`}>
             Sign-Up
-          </Button>
-          <Button variant="contained" color="secondary">
-           {" "} <FaGoogle />
-          </Button>
-        </Stack>
+          </button>
+        </div>
+        <div className="flex items-center justify-center">
+            <FcGoogle  size={30} className="cursor-pointer mt-2"/>
+            <FaGithub size={30} className="cursor-pointer ml-2 mt-2 text-black"/>
+        </div>
         <p className="dark:text-white text-black">
           Already have account ?{" "}
           <span
