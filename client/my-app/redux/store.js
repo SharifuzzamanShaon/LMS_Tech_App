@@ -2,7 +2,38 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./features/api/apiSlice";
 import authSlice from "./features/auth/authSlice";
+import storage from "redux-persist/lib/storage";
+import persistStore from "redux-persist/es/persistStore";
+import persistReducer from "redux-persist/es/persistReducer";
 
+const persistConfig = {
+  key: "auth",
+  storage,
+  // whitelist: ["token", "user"], // Only persist accessToken and user
+};
+const persistedAuthReducer = persistReducer(persistConfig, authSlice);
+
+export const store = configureStore({
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    auth: persistedAuthReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: process.env.NODE_ENV !== "production",
+});
+
+export const persistor = persistStore(store);
+
+//call refreshToken fun in every page load
+const initilizeApp = async () => {
+  await store.dispatch(
+    apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })
+  );
+};
+
+initilizeApp();
+/*
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
@@ -23,3 +54,4 @@ const initilizeApp = async () => {
 };
 
 initilizeApp();
+  */

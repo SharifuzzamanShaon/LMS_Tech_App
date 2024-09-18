@@ -11,11 +11,8 @@ import Image from "next/image";
 const Header = ({ open, activeItem, setOpen }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
-  const [userInfo, setUserInfo] = useState()
   const { user } = useSelector((state) => state.auth);
-  useEffect(()=>{
-    setUserInfo(user)
-  },[user])
+
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -61,9 +58,9 @@ const Header = ({ open, activeItem, setOpen }) => {
                 />
               </div>
               <div className="hidden lg:block">
-                {userInfo ? (
+                {user ? (
                   <Image
-                    src={userInfo.avatar}
+                    src={user.avatar}
                     alt=""
                     width={30}
                     height={30}
@@ -95,9 +92,9 @@ const Header = ({ open, activeItem, setOpen }) => {
               </Link>
               <NavItems activeItem={activeItem} isMobile={true} />
               <div>
-                {userInfo ? (
+                {user ? (
                   <Image
-                    src={userInfo.avatar}
+                    src={user.avatar}
                     alt=""
                     width={30}
                     height={30}

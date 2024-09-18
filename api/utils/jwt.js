@@ -8,7 +8,7 @@ const sendToken = async (user, status, res, next) => {
       _id: user._id,
     };
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_KEY, {
-      expiresIn: `${accessTokenExpire}h`,
+      expiresIn: `${accessTokenExpire}m`,
     });
     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_KEY, {
       expiresIn: `${refreshTokenExpire}d`,

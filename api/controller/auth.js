@@ -78,8 +78,15 @@ const login = async (req, res, next) => {
     if (!user) throw error("user not found", 404);
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) throw error("Password not match", 401);
-    await redis.set(user._id, JSON.stringify(user));
-    sendToken(user, 200, res, next);
+    const payload = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar,
+      role: user.role,
+    };
+    await redis.set(user._id, JSON.stringify(payload));
+    sendToken(payload, 200, res, next);
   } catch (err) {
     next(err);
   }
@@ -118,7 +125,7 @@ const updateToken = async (req, res, next) => {
   }
 };
 
-const googleAuth = async (req, res, next) => {
+const socialAuth = async (req, res, next) => {
   const { name, email, photoURL } = req.body;
   try {
     const validUser = await User.findOne({ email: email });
@@ -133,13 +140,14 @@ const googleAuth = async (req, res, next) => {
       sendToken(payload, 200, res, next);
     } else {
       const generatePass = Math.random().toString(36).slice(-8);
-      const username =
-        name.split(" ").join("").toLowerCase() +
-        Math.random().toString(10).slice(-2);
+      // const username =
+      //   name.split(" ").join("").toLowerCase() +
+      //   Math.random().toString(10).slice(-2);
+      const hash = await bcrypt.hash(generatePass, saltRounds);
       const newUser = new User({
-        username,
+        username:email,
         email,
-        password: generatePass,
+        password: hash,
         avatar: photoURL,
       });
       const userInfo = await newUser.save();
@@ -230,7 +238,7 @@ module.exports = {
   login,
   logout,
   updateToken,
-  googleAuth,
+  socialAuth,
   foregtPassword,
   resetPassword,
 };

@@ -1,5 +1,6 @@
-"use client";
+
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { userloggedIn, userLoggedOut } from "../auth/authSlice";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
@@ -11,7 +12,24 @@ export const apiSlice = createApi({
         url: "auth/refresh",
         method: "POST",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const res = await queryFulfilled;
+          console.log(res.data.success);
+
+          if (res.data.success != true) {
+            dispatch(userLoggedOut());
+          }
+        } catch (error) {
+          if (error) {
+            dispatch(userLoggedOut());
+          }
+        }
+      },
     }),
   }),
 });

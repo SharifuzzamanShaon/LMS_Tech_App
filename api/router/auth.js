@@ -2,7 +2,7 @@ const router = require("express").Router();
 const {
   register,
   login,
-  googleAuth,
+  socialAuth,
   foregtPassword,
   resetPassword,
   verifyAccount,
@@ -19,8 +19,8 @@ router.post("/register", runValidation(schemas.signup), register);
 router.post("/activate-account", activation);
 router.post("/login", login);
 router.post("/logout", authMiddleware, logout);
-router.post("/refresh", updateToken);
-router.post("/google", googleAuth);
+router.post("/refresh",authMiddleware, updateToken);
+router.post("/social-auth", socialAuth);
 router.post("/forget-password", foregtPassword);
 router.post(
   "/reset-password",
