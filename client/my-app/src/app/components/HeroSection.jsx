@@ -7,7 +7,7 @@ const HeroSection = () => {
       <div className="container mx-auto flex flex-col lg:flex-row items-center">
         {/* Left Side: Image */}
         <div className="w-full lg:w-1/2 p-6">
-          <Image
+        <Image
             src="/image/hero-img.png" // Replace with your image path
             alt="Course Image"
             width={500}
