@@ -7,12 +7,12 @@ import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import CustomModal from "../utils/CustomModal";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import UserProfileMenu from "./UserProfile/UserProfileMenu";
 
 const Header = ({ open, activeItem, setOpen }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const { user } = useSelector((state) => state.auth);
-
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -59,16 +59,11 @@ const Header = ({ open, activeItem, setOpen }) => {
               </div>
               <div className="hidden lg:block">
                 {user ? (
-                  <Image
-                    src={user.avatar}
-                    alt=""
-                    width={30}
-                    height={30}
-                    className="rounded-full"
-                  />
+                  <UserProfileMenu imgSrc={user.avatar} />
                 ) : (
                   <HiOutlineUserCircle
                     size={25}
+                    disableScrollLock={true}
                     className="cursor-pointer ml-5 dark:text-white text-black"
                     onClick={() => setOpen(true)}
                   />
@@ -88,7 +83,7 @@ const Header = ({ open, activeItem, setOpen }) => {
                 href={"/"}
                 className={`text-[20px] pt-5 ml-5 font-Poppins font-500 text-black dark:text-white`}
               >
-                A-A-O
+                A-A-O-m
               </Link>
               <NavItems activeItem={activeItem} isMobile={true} />
               <div>
