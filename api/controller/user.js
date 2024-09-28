@@ -43,8 +43,10 @@ const userUpdate = async (req, res, next) => {
 const updateAvatar = async (req, res, next) => {
   try {
     const { avatar } = req.body;
+    // const base64Data = avatar.split(',')[1]
+    // console.log(base64Data);
+    
     let user = await User.findById(req.user._id);
-    console.log(user);    
     const buffer = Buffer.from(avatar, "base64");
     fs.writeFileSync("outputfile", buffer);
     const response = await uploadOnCloudinary(avatar);

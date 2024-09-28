@@ -2,9 +2,9 @@
 import SidebarProfile from "@/app/components/Profile/SidebarProfile";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import UserAccount from "./UserProfileOptions/UserAccount";
-import EnrolledCourse from "./UserProfileOptions/EnrolledCourse";
-import ChangePassword from "./UserProfileOptions/ChangePassword";
+import UserAccount from "./UserProfilePageOptions/UserAccount";
+import EnrolledCourse from "./UserProfilePageOptions/EnrolledCourse";
+import ChangePassword from "./UserProfilePageOptions/ChangePassword";
 import LogoutModule from "../AuthModule/LogoutModule";
 const Profile = () => {
   const [scroll, setScroll] = useState(false);
@@ -40,7 +40,7 @@ const Profile = () => {
         className={`ml-5 w-[78%] 800px:w-[310px] h-[450px] dark:bg-slate-900 bg-white dark:text-white shadow-sm !important dark:shadow-sm bg-opacity-90 border dark:border-[#ffffff1d] rounded-[5px] shadow-sm mt-[80px] mb-[80px] sticky
         ${scroll ? "top-[120px]" : "top-[30px]"} left-[30px]`}
       >
-        {active === 1 && <UserAccount />}
+        {active === 1 && <UserAccount user={user}/>}
         {active === 2 && <EnrolledCourse />}
         {active === 3 && <ChangePassword />}
         {open && <LogoutModule open={open} setOpen={setOpen}/>}

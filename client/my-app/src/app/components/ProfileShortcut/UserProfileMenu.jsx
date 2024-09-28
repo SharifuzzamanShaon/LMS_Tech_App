@@ -66,16 +66,13 @@ const UserProfileMenu = ({ imgSrc }) => {
             "aria-labelledby": "basic-button",
           }}
         >
-          {disableProfileOp ? (
-            ""
-          ) : (
-            <MenuItem
-              className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white  dark:hover:bg-slate-800"
-              onClick={handleClose}
-            >
-              <Link href="/profile">Profile</Link>
-            </MenuItem>
-          )}
+          <MenuItem
+            className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white  dark:hover:bg-slate-800"
+            onClick={handleClose}
+          >
+            <Link href="/profile">Profile</Link>
+          </MenuItem>
+
           <MenuItem
             className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-800"
             onClick={handleClose}

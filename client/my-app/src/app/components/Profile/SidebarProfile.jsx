@@ -35,7 +35,7 @@ const SidebarProfile = ({ user, active, setActive, open, setOpen }) => {
         ${active === 2 ? "dark:bg-slate-800 bg-slate-300" : "bg-transparent"}`}
         onClick={() => setActive(2)}
       >
-        <MdOutlinePassword />
+        <FcIdea />
         <h5 className="ml-4">Enrolled Courses</h5>
       </div>
       <div
@@ -43,7 +43,7 @@ const SidebarProfile = ({ user, active, setActive, open, setOpen }) => {
         ${active === 3 ? "dark:bg-slate-800 bg-slate-300" : "bg-transparent"}`}
         onClick={() => setActive(3)}
       >
-        <FcIdea />
+        <MdOutlinePassword />
         <h5 className="ml-4">Change Password</h5>
       </div>
       <div

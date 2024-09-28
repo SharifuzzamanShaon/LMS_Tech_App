@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import UserProfileMenu from "./UserProfile/UserProfileMenu";
+import UserProfileMenu from "./ProfileShortcut/UserProfileMenu";
 
 const HeroSection = () => {
   return (

@@ -48,7 +48,6 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
     },
   });
   const { errors, touched, values, handleChange, handleSubmit } = formik;
-  console.log(errors);
 
   return (
     <>

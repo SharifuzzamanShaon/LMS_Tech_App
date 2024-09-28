@@ -7,7 +7,7 @@ import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import CustomModal from "../utils/CustomModal";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import UserProfileMenu from "./UserProfile/UserProfileMenu";
+import UserProfileMenu from "./ProfileShortcut/UserProfileMenu";
 
 const Header = ({ open, activeItem, setOpen }) => {
   const [active, setActive] = useState(false);

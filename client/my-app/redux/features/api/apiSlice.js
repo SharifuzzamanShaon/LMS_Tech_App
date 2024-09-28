@@ -19,7 +19,6 @@ export const apiSlice = createApi({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
-          console.log(res.data.success);
 
           if (res.data.success != true) {
             dispatch(userLoggedOut());
