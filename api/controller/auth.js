@@ -80,6 +80,7 @@ const login = async (req, res, next) => {
     if (!passwordMatch) throw error("Password not match", 401);
     const payload = {
       _id: user._id,
+      name: user.name,
       username: user.username,
       email: user.email,
       avatar: user.avatar,
