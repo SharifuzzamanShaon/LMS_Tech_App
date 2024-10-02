@@ -55,17 +55,14 @@ const UserAccount = ({ user }) => {
         { avatar },
         config
       );
-      console.log(res.status);
-      setUploadSuccess(true);
-    } catch (error) {}
-    useEffect(() => {
       if (res) {
         if (res.status == 200) {
           toast.success("Your Profile Image Updated");
         }
       }
-    }, [uploadSuccess]);
-    // await uploadAvatar({avatar});
+    } catch (error) {
+      toast.error("Something went worng");
+    }
   };
   return (
     <div className="flex flex-col items-center justify-center py-8 px-4">

@@ -3,10 +3,10 @@ const User = require("../../model/user.model");
 const error = require("../../utils/error");
 
 const accessChat = async (req, res, next) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
 
   if (!userId) {
-    return res.sendStatus(400);
+    return res.status(400);
   }
 
   var isChat = await Chat.find({
@@ -25,7 +25,7 @@ const accessChat = async (req, res, next) => {
   // });
   // console.log(isChat);
   if (isChat.length > 0) {
-    res.send(isChat[0]);
+    res.status(200).send({chats:isChat[0]});
   } else {
     var chatData = {
       chatName: "sender",
@@ -39,10 +39,9 @@ const accessChat = async (req, res, next) => {
         "users",
         "-password"
       );
-      res.status(200).json(FullChat);
+      res.status(201).send({success: true, chats:FullChat});
     } catch (error) {
-      res.status(400);
-      next(error);
+     next(error)
     }
   }
 };

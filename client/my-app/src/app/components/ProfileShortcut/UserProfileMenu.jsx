@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLoggedOut } from "../../../../redux/features/auth/authSlice";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const UserProfileMenu = ({ imgSrc }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -17,8 +18,7 @@ const UserProfileMenu = ({ imgSrc }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  console.log(disableProfileOp);
-
+  const router = useRouter();
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(userLoggedOut());
@@ -26,6 +26,10 @@ const UserProfileMenu = ({ imgSrc }) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleMenuItemClick = (nav) => {
+    handleClose();
+    router.push(`/${nav}`);
   };
   // const router = useRouter();
   // useEffect(() => {
@@ -68,14 +72,19 @@ const UserProfileMenu = ({ imgSrc }) => {
         >
           <MenuItem
             className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white  dark:hover:bg-slate-800"
-            onClick={handleClose}
+            onClick={() => handleMenuItemClick("profile")}
           >
-            <Link href="/profile">Profile</Link>
+            <p>Profile</p>
           </MenuItem>
-
+          <MenuItem
+            className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white  dark:hover:bg-slate-800"
+            onClick={() => handleMenuItemClick("student-lounge")}
+          >
+            <p>Chat's</p>
+          </MenuItem>
           <MenuItem
             className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-800"
-            onClick={handleClose}
+            onClick={() => handleMenuItemClick("my-account")}
           >
             My account
           </MenuItem>

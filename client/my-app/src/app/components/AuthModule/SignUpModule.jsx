@@ -44,7 +44,6 @@ const SignUpModule = ({ route, setRoute }) => {
     initialValues: { username: "", email: "", password: "" },
     validationSchema: Schema,
     onSubmit: async (signupInfo) => {
-      console.log(signupInfo);
       await register(signupInfo);
     },
   });

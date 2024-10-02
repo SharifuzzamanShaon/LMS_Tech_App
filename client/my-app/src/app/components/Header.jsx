@@ -33,12 +33,12 @@ const Header = ({ open, activeItem, setOpen }) => {
       <div
         className={`${
           active
-            ? "dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[80px] z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500"
+            ? "dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[70px] z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500"
             : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[80] dark:shadow"
         }`}
       >
         <div className="w-{95%} md:w-{92%} m-auto py-2 h-full">
-          <div className="w-full h-[80%] flex items-center justify-between p-3">
+          <div className="w-full h-[70%] flex items-center justify-between p-3">
             <div>
               <Link
                 href={"/"}
@@ -93,7 +93,7 @@ const Header = ({ open, activeItem, setOpen }) => {
                     alt=""
                     width={30}
                     height={30}
-                    className="rounded-full"
+                    className="object-cover"
                   />
                 ) : (
                   <HiOutlineUserCircle

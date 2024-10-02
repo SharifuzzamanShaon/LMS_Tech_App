@@ -17,5 +17,5 @@ router.use("/course", courseRouter);
 router.use("/order", orderRouter);
 router.use("/products", productRouter);
 router.use("/product/category", categoryRouter);
-router.use("/conversation", conversationRouters);
+router.use("/conversation", authMiddleware, conversationRouters);
 module.exports = router;

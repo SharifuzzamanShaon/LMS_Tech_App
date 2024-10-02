@@ -1,17 +1,21 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
-export const initialState = {
+ const initialState = {
   users: [],
+  allConversations: []
 };
-const conversationSlice = createSlice({
+export const conversationSlice = createSlice({
   name: "conversationSlice",
   initialState,
   reducers: {
     getUsers: (state, action) => {
-      state.users = action.payload.allUser;
+      state.users = action.payload;
     },
+    myAllConversation: (state,action)=>{
+      state.allConversations = action.payload
+    }
   },
 });
-export const { getUsers } = conversationSlice.actions;
+export const { getUsers, myAllConversation } = conversationSlice.actions;
 
-export default initialState.reducer;
+export default conversationSlice.reducer;

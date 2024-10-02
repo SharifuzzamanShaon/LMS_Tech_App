@@ -14,7 +14,6 @@ const VerificationModule = ({ route, setRoute }) => {
     2: "",
     3: "",
   });
-  console.log(varifyNumber);
 
   const [activation, { isError, isSuccess, data, error }] =
     useActivationMutation();

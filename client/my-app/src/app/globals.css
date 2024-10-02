@@ -45,28 +45,21 @@ body {
   text-transform: uppercase;
   background-color: #d9d9d9;
 
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 2rem;
   font-weight: bolder;
   color: white;
   height: 48px;
   width: 48px;
-  padding: 2px;
+  padding: 1px;
 
   border-radius: 50%;
   justify-self: center;
   align-self: center;
-  margin-left: 10px;
-  margin-right: 5px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
-.con-title {
-  grid-area: 1/2/2/4;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.54);
-  text-transform: capitalize;
-}
+
 
   
 .ug-header {
@@ -109,4 +102,21 @@ body {
   padding: 8px 5px;
   margin: 8px;
   user-select: none;
+}
+
+
+.conversation-container {
+  font-size: 15px;
+  display: grid;
+  grid-template-columns: 48px auto;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.conversation-container:hover {
+  background-color: #d9d9d9;
 }

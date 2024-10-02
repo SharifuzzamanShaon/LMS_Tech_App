@@ -5,6 +5,8 @@ import authSlice from "./features/auth/authSlice";
 import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
 import persistReducer from "redux-persist/es/persistReducer";
+import conversationSlice from "./features/conversation/conversationSlice";
+import refreshSidebarSlice from "./features/conversation/refreshSidebarSlice";
 
 const persistConfig = {
   key: "auth",
@@ -17,6 +19,8 @@ export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: persistedAuthReducer,
+    conversation: conversationSlice,
+    refreshSideBar: refreshSidebarSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

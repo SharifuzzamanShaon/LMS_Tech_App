@@ -24,7 +24,6 @@ const SocialAuthentication = ({setOpen}) => {
     try {
       const provider = new GoogleAuthProvider();
       const response = await signInWithPopup(auth, provider);
-      console.log(response);
       const newUserInfo = {
         name: response.user.email,
         email: response.user.email,
