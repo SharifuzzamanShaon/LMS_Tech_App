@@ -1,8 +1,10 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
- const initialState = {
+const initialState = {
   users: [],
-  allConversations: []
+  allConversations: [],
+  currentChatPartnerId: "",
+  allChatData: [],
 };
 export const conversationSlice = createSlice({
   name: "conversationSlice",
@@ -11,11 +13,22 @@ export const conversationSlice = createSlice({
     getUsers: (state, action) => {
       state.users = action.payload;
     },
-    myAllConversation: (state,action)=>{
-      state.allConversations = action.payload
-    }
+    myAllConversation: (state, action) => {
+      state.allConversations = action.payload;
+    },
+    currentChatPartnerId: (state, action) => {
+      state.currentChatPartnerId = action.payload;
+    },
+    setAllChatData: (state, action) => {
+      state.allChatData = action.payload;
+    },
   },
 });
-export const { getUsers, myAllConversation } = conversationSlice.actions;
+export const {
+  getUsers,
+  myAllConversation,
+  currentChatPartnerId,
+  setAllChatData,
+} = conversationSlice.actions;
 
 export default conversationSlice.reducer;

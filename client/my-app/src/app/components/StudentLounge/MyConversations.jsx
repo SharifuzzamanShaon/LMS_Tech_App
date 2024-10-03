@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../../globals.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { useGetAllConversationMutation } from "../../../../redux/features/conversation/conversationApi";
 import { useRouter } from "next/navigation";
+import { currentChatPartnerId } from "../../../../redux/features/conversation/conversationSlice";
 
-const MyConversations = ({setNavigate}) => {
+const MyConversations = ({ setNavigate }) => {
   const { user } = useSelector((state) => state.auth);
   const refresh = useSelector((state) => state.refreshSideBar);
+  const dispatch = useDispatch();
   const router = useRouter();
   const { allConversations } = useSelector(
     (state) => state.conversation.allConversations
@@ -39,12 +41,15 @@ const MyConversations = ({setNavigate}) => {
                 key={index}
                 className="conversation-container  dark:bg-slate-800 dark:text-white dark:hover:bg-slate-600"
                 onClick={() => {
-                  router.push(
-                    `chat/${conversation._id}&${
-                      conversation.users[0]._id === user._id
-                        ? conversation.users[1].name
-                        : conversation.users[0].name
-                    }`
+                  setNavigate("chat-area");
+                  dispatch(
+                    currentChatPartnerId(
+                      `${conversation._id}&${
+                        conversation.users[0]._id === user._id
+                          ? conversation.users[1].name
+                          : conversation.users[0].name
+                      }`
+                    )
                   );
                 }}
               >
@@ -80,14 +85,17 @@ const MyConversations = ({setNavigate}) => {
           return (
             <div
               key={index}
-              className="conversation-container  dark:bg-slate-800 dark:text-white"
+              className="conversation-container  dark:bg-slate-800 dark:text-white  dark:hover:bg-slate-600"
               onClick={() => {
-                router.push(
-                  `chat/${conversation._id}&${
-                    conversation.users[0]._id === user._id
-                      ? conversation.users[1].name
-                      : conversation.users[0].name
-                  }`
+                setNavigate("chat-area");
+                dispatch(
+                  currentChatPartnerId(
+                    `${conversation._id}&${
+                      conversation.users[0]._id === user._id
+                        ? conversation.users[1].name
+                        : conversation.users[0].name
+                    }`
+                  )
                 );
               }}
             >
@@ -96,7 +104,7 @@ const MyConversations = ({setNavigate}) => {
                   ? conversation.users[1].name[0]
                   : conversation.users[0].name[0]}
               </p>
-              <p className="text-black dark:text-white">
+              <p className="text-black dark:text-white font-bold">
                 {conversation.users[0]._id === user._id
                   ? conversation.users[1].name
                   : conversation.users[0].name}

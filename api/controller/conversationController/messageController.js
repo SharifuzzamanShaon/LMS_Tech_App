@@ -10,7 +10,7 @@ const sendMessage = async (req, res, next) => {
       return res.status(400);
     }
     var newMessage = {
-      sender: req.userInfo._id,
+      sender: req.user._id,
       content: content,
       chat: chatId,
     };
@@ -31,7 +31,7 @@ const sendMessage = async (req, res, next) => {
 };
 const allMessages = async (req, res, next) => {
   try {
-    const id = req.userInfo._id;
+    const id = req.user._id;
     const messages = await Message.find({ chat: req.params.chatId || id })
       .populate("sender", "name email")
       .populate("reciever")

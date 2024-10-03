@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-const ChatArea = () => {
+const page = () => {
   return (
     <div className="m-4">
       <div className="flex flex-1 justify-between shadow-md p-2">
@@ -9,7 +9,7 @@ const ChatArea = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ChatArea;
+export default page

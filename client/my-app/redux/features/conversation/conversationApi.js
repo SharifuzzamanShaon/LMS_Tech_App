@@ -1,5 +1,9 @@
 const { apiSlice } = require("../api/apiSlice");
-const { getUsers, myAllConversation } = require("./conversationSlice");
+const {
+  getUsers,
+  myAllConversation,
+  setAllChatData,
+} = require("./conversationSlice");
 
 const conversationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -48,7 +52,49 @@ const conversationApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    getAllChatData: builder.mutation({
+      query: (data) => ({
+        url: `conversation/message/${data.chatId}`,
+        method: "GET",
+        credentials: "include",
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const res = await queryFulfilled;
+          dispatch(
+            setAllChatData({
+              allChatData: res.data,
+            })
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
+    sendMessage: builder.mutation({
+      query: ({ content, chatId }) => ({
+        url: "conversation/message",
+        method: "POST",
+        body: { content, chatId },
+        credentials: "include",
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          console.log(arg);
+
+          const res = await queryFulfilled;
+          console.log(res);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
-export const { useGetUserMutation, useAccessingNewUserMutation, useGetAllConversationMutation } =
-  conversationApi;
+export const {
+  useGetUserMutation,
+  useAccessingNewUserMutation,
+  useGetAllConversationMutation,
+  useGetAllChatDataMutation,
+  useSendMessageMutation,
+} = conversationApi;

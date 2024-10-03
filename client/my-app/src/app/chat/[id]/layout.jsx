@@ -1,19 +1,18 @@
 "use client";
+import GetUser from "@/app/components/StudentLounge/GetUser";
+import Groups from "@/app/components/StudentLounge/Groups";
+import MainLoungeNavigator from "@/app/components/StudentLounge/MainLoungeNavigator";
+import MyConversations from "@/app/components/StudentLounge/MyConversations";
+import Welcome from "@/app/components/StudentLounge/Welcome";
 import { IconButton } from "@mui/material";
 import React, { useState } from "react";
-import MainLoungeNavigator from "./MainLoungeNavigator";
-import Welcome from "./Welcome";
-import GetUser from "./GetUser";
-import Groups from "./Groups";
 import { BiSearch } from "react-icons/bi";
-import MyConversations from "./MyConversations";
-import ChatArea from "./ChatArea/ChatArea";
-const MainLounge = () => {
+const ChatLayout = ({ children }) => {
   const [navigate, setNavigate] = useState(0);
   return (
     <>
       <div
-        className={`w-[22%] 800px:w-[310px] h-auto dark:bg-slate-900 bg-white dark:text-white shadow-sm !important dark:shadow-sm bg-opacity-90 border dark:border-[#ffffff1d] rounded-[5px] shadow-sm mt-[30px] mb-[30px] sticky
+        className={`w-[22%] 800px:w-[310px] h-[800px] dark:bg-slate-900 bg-white dark:text-white shadow-sm !important dark:shadow-sm bg-opacity-90 border dark:border-[#ffffff1d] rounded-[5px] shadow-sm mt-[30px] mb-[30px] sticky
         ${scroll ? "top-[120px]" : "top-[30px]"} left-[30px]`}
       >
         <MainLoungeNavigator setNavigate={setNavigate} />
@@ -26,19 +25,17 @@ const MainLounge = () => {
             className="outline-0 border-none ml-2 text-lg text-gray-600 w-full bg-gray-100  dark:bg-slate-900 dark:text-white rounded-md shadow-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           ></input>
         </div>
-        <MyConversations setNavigate={setNavigate}/>
+        <MyConversations />
       </div>
       <div
-        className={`ml-8 w-[75%] 800px:w-[310px] h-auto dark:bg-slate-900 bg-white dark:text-white shadow-sm !important dark:shadow-sm bg-opacity-90 border dark:border-[#ffffff1d] rounded-[5px] shadow-sm mt-[30px] mb-[30px] sticky
+        className={`ml-8 w-[75%] 800px:w-[310px] h-[800px] dark:bg-slate-900 bg-white dark:text-white shadow-sm !important dark:shadow-sm bg-opacity-90 border dark:border-[#ffffff1d] rounded-[5px] shadow-sm mt-[30px] mb-[30px] sticky
             ${scroll ? "top-[120px]" : "top-[30px]"} left-[30px]`}
       >
-        {navigate === 1 && <Welcome />}
-        {navigate === 2 && <GetUser />}
-        {navigate === 3 && <Groups />}
-        {navigate === 'chat-area' && <ChatArea/>}
+        <h2></h2>
+        {children}
       </div>
     </>
   );
 };
 
-export default MainLounge;
+export default ChatLayout;
