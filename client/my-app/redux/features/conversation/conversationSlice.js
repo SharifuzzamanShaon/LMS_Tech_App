@@ -20,7 +20,7 @@ export const conversationSlice = createSlice({
       state.currentChatPartnerId = action.payload;
     },
     setAllChatData: (state, action) => {
-      state.allChatData = action.payload;
+      state.allChatData =  action.payload;
     },
   },
 });
@@ -29,6 +29,7 @@ export const {
   myAllConversation,
   currentChatPartnerId,
   setAllChatData,
+  addNewReceivedMsg,
 } = conversationSlice.actions;
 
 export default conversationSlice.reducer;

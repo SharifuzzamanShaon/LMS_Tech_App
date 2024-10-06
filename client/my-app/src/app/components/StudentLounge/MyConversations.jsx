@@ -22,7 +22,7 @@ const MyConversations = ({ setNavigate }) => {
   }, [refresh]);
   return (
     <div className="bg-white dark:bg-slate-800 dark:text-white rounded-[20px] p-1.5 flex-1 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,rgba(0,0,0,0.3)_0px_3px_7px_-3px] m-2.5">
-      {allConversations?.map((conversation, index) => {
+      {allConversations && allConversations?.map((conversation, index) => {
         // console.log("current convo : ", conversation);
         if (conversation.users.length === 1) {
           return <div key={index}></div>;
@@ -111,7 +111,7 @@ const MyConversations = ({ setNavigate }) => {
               </p>
 
               <p className="text-[13px] dark:text-gray-700 text-black">
-                {conversation.latestMessage.content}
+                {conversation && conversation.latestMessage?.content}
               </p>
               <p className={"con-timeStamp"}>{conversation.timeStamp}</p>
             </div>

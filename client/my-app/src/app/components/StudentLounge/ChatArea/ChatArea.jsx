@@ -1,44 +1,68 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  useGetAllChatDataMutation,
-  useSendMessageMutation,
-} from "../../../../../redux/features/conversation/conversationApi";
-import { refreshSidebarFun } from "../../../../../redux/features/conversation/refreshSidebarSlice";
-import MessageFromOutside from "./MessageFromOutside";
 import MessageSelf from "./MessageSelf";
+import MessageFromOutside from "./MessageFromOutside";
+import { useDispatch, useSelector } from "react-redux";
+import { refreshSidebarFun } from "../../../../../redux/features/conversation/refreshSidebarSlice";
 import { IoSendSharp } from "react-icons/io5";
 import { IconButton } from "@mui/material";
 import { MdDelete } from "react-icons/md";
+import { io } from "socket.io-client";
+import { config } from "@/app/utils/config";
+import axios from "axios";
+import toast from "react-hot-toast";
 import "../../../globals.css";
-
+const serverUri = process.env.NEXT_PUBLIC_SERVER_URI;
+let socket;
 const ChatArea = () => {
   const [msgText, setMsgText] = useState("");
   const [msgBoxRefresh, setMsgBoxRefesh] = useState(false);
+  const [displayMsg, setDisplayMsg] = useState([]);
   const dispatch = useDispatch();
   const { currentChatPartnerId } = useSelector((state) => state.conversation);
   const { user } = useSelector((state) => state.auth);
-  const { allChatData } = useSelector(
-    (state) => state.conversation.allChatData
-  );
+
   const [chatId, name] = currentChatPartnerId.split("&");
-  const [getAllChatData, { isSuccess, isError, data }] =
-    useGetAllChatDataMutation();
-  const [
-    sendMessage,
-    { isSuccess: sendSuccess, isError: msgSendErr, data: msgData },
-  ] = useSendMessageMutation();
+  const endpoint = "http://localhost:5000";
   useEffect(() => {
-    getAllChatData({ chatId });
+    socket = io(endpoint);
+    socket.emit("setup", user);
+    socket.on("connection", () => setSocketConnected(true));
+  }, []);
+  useEffect(() => {
+    fetchMessages();
   }, [msgBoxRefresh]);
+
+  const fetchMessages = async () => {
+    try {
+      const res = await axios.get(
+        `${serverUri}conversation/message/${chatId}`,
+        config
+      );
+      setDisplayMsg(res.data);
+      socket.emit("join chat", chatId);
+    } catch (error) {
+      toast.error("Error Occured, Try again");
+    }
+  };
   const handleSendMessage = async () => {
-    await sendMessage({ content: msgText, chatId });
+    const { data } = await axios.post(
+      `${serverUri}conversation/message`,
+      { content: msgText, chatId },
+      config
+    );
     setMsgText("");
     setMsgBoxRefesh(!msgBoxRefresh);
     dispatch(refreshSidebarFun());
+    socket.emit("new message", data);
   };
-  console.log(msgData);
+
+  useEffect(() => {
+    socket.on("message received", (newMsgReceived) => {
+      console.log("new Msg received");
+      setDisplayMsg([...displayMsg, newMsgReceived]);
+    });
+  });
   return (
     <div className="chatArea-container">
       <div className="chatArea-header">
@@ -52,8 +76,8 @@ const ChatArea = () => {
         </IconButton>
       </div>
       <div className="messages-container">
-        {allChatData &&
-          allChatData
+        {displayMsg &&
+          displayMsg
             .slice()
             .reverse()
             .map((message, index) => {

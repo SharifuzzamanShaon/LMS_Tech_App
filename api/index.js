@@ -10,13 +10,14 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const authMiddleware = require("./middleware/authenticate/authMiddleware");
 
-
 app.use(cookieParser());
-app.use(cors({
-  origin: 'http://localhost:3000',  // This should match the address of your frontend
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,  // Enable this if you need to handle cookies
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // This should match the address of your frontend
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // Enable this if you need to handle cookies
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -54,8 +55,47 @@ app.use((error, req, res, text) => {
 });
 
 const port = 5000;
-app.listen(port, async () => {
+const server = app.listen(port, async () => {
   console.log("server Running at http://localhost:5000");
   await connectDB();
   console.log("DB connected");
+});
+const io = require("socket.io")(server, {
+  pingTimeout: 50000,
+  cors: {
+    origin: "http://localhost:3000", // Allow these HTTP methods
+    credentials: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("connected to socket.io");
+  socket.on("setup", (userData) => {
+    socket.join(userData._id);
+    console.log(userData._id);
+    socket.emit("connected");
+
+    socket.on("join chat", (room) => {
+      socket.join(room);
+      console.log("user joined room", room);
+    });
+    socket.on("new message", (newMessageRecieved) => {
+      const msgContent = newMessageRecieved;
+      console.log("chat:::", msgContent);
+
+      if (!msgContent.chat.users) {
+        console.log("User not defined");
+        return;
+      }
+      if (msgContent.chat.users) {
+        msgContent.chat.users.forEach((user) => {
+          console.log(`USER:${user}`);
+
+          if (user._id == msgContent.sender._id) return;
+          socket.in(user._id).emit("message received", msgContent);
+          console.log(msgContent);
+        });
+      }
+    });
+  });
 });

@@ -60,7 +60,7 @@ const conversationApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
-          const res = await queryFulfilled;
+          const res = await queryFulfilled;          
           dispatch(
             setAllChatData({
               allChatData: res.data,
@@ -80,10 +80,7 @@ const conversationApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
-          console.log(arg);
-
           const res = await queryFulfilled;
-          console.log(res);
         } catch (error) {
           console.log(error);
         }
