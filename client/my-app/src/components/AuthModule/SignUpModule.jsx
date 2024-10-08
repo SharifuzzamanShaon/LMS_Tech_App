@@ -1,7 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import FormControl from "@mui/material/FormControl";
 import { style } from "../../utils/styled/style";
+import FormControl from "@mui/material/FormControl";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+
 import * as Yup from "yup";
 import {
   Button,
@@ -12,43 +15,39 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { BiHide, BiShow } from "react-icons/bi";
-import { useLoginMutation } from "../../../../redux/features/auth/authApi";
+import { useRegisterMutation } from "../../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
-import SocialAuthentication from "./SocialAuthentication";
-
 const Schema = Yup.object().shape({
+  username: Yup.string().required("Need an unique username"),
   email: Yup.string()
     .email("Invalid Email")
     .required("Please Enter your email"),
   password: Yup.string().required("Please Enter your password").min(6),
 });
-
-const LoginModule = ({ route, setRoute, setOpen }) => {
+const SignUpModule = ({ route, setRoute }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [login, { isSuccess, data, error }] = useLoginMutation();
+  const [register, { isError, data, error, isSuccess }] = useRegisterMutation();
   useEffect(() => {
     if (isSuccess) {
-      const msg = data.message || "Login Successful";
+      const msg = data?.message || "Registration Successful";
       toast.success(msg);
-      setOpen(false);
+      setRoute("verify")
     }
     if (error) {
       if ("data" in error) {
-        toast.error(error.data.message);
+        const errData = error;
+        toast.error(errData.data.message);
       }
     }
   }, [isSuccess, error]);
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { username: "", email: "", password: "" },
     validationSchema: Schema,
-    onSubmit: async (loginInfo) => {
-      const email = loginInfo.email;
-      const password = loginInfo.password;
-      await login({ email, password });
+    onSubmit: async (signupInfo) => {
+      await register(signupInfo);
     },
   });
   const { errors, touched, values, handleChange, handleSubmit } = formik;
-
   return (
     <>
       <form
@@ -57,10 +56,39 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
       >
         <FormControl fullWidth variant="outlined">
           <InputLabel
+            htmlFor="username"
+            className={`${
+              errors.username && touched.username && "text-red-600"
+            }${style.title}`}
+          >
+            Username
+          </InputLabel>
+          <Input
+            type="text"
+            className={"dark:text-white text-black"}
+            id="username"
+            value={values.username}
+            onChange={handleChange}
+            aria-describedby="username-helper-text"
+            required
+          />
+          <FormHelperText
+            id="email-helper-text"
+            className="dark:text-white text-black"
+          >
+            {errors.username && touched.username ? (
+              <span className="text-red-600">{errors.username}</span>
+            ) : (
+              <span>Insert an Username</span>
+            )}
+          </FormHelperText>
+        </FormControl>
+        <FormControl fullWidth variant="outlined">
+          <InputLabel
             htmlFor="email"
-            className={`${errors.email && touched.email && "text-red-600"} ${
-              style.title
-            }`}
+            className={`${
+              errors.email && touched.email && "text-red-600"
+            } dark:text-white text-black`}
           >
             Email address
           </InputLabel>
@@ -80,7 +108,7 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
             {errors.email && touched.email ? (
               <span className="text-red-600">{errors.email}</span>
             ) : (
-              <span>Valid Email</span>
+              <span>Email address </span>
             )}
           </FormHelperText>
         </FormControl>
@@ -120,28 +148,30 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
               id="password-helper-text"
               className="dark:text-white text-black"
             >
-              <div className="flex flex-col">
-                {errors.password && touched.password ? (
-                  <span className="text-red-600">{errors.password}</span>
-                ) : (
-                  <span>Mnimum 6 charecter</span>
-                )}
-              </div>
-              <p>Forget Password</p>
+              {errors.password && touched.password ? (
+                <span className="text-red-600">{errors.password}</span>
+              ) : (
+                <span>Mnimum 6 charecter</span>
+              )}
             </FormHelperText>
           </FormControl>
         </div>
-        <Button type="submit" variant="contained" color="primary">
-          Login
-        </Button>
-        <SocialAuthentication setOpen={setOpen}/>
+        <div className="w-full mt-5">
+          <button type="submit" value="signup" className={`${style.button}`}>
+            Sign-Up
+          </button>
+        </div>
+        <div className="flex items-center justify-center">
+            <FcGoogle  size={30} className="cursor-pointer mt-2"/>
+            <FaGithub size={30} className="cursor-pointer ml-2 mt-2 text-black"/>
+        </div>
         <p className="dark:text-white text-black">
-          Don't have account ?{" "}
+          Already have account ?{" "}
           <span
             className="hyper cursor-pointer text-blue-800 dark:border-b-slate-100 border-b border-blue-800"
-            onClick={() => setRoute("signUp")}
+            onClick={() => setRoute("login")}
           >
-            {"  "} Sign-up
+            Login
           </span>
         </p>
       </form>
@@ -149,4 +179,4 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
   );
 };
 
-export default LoginModule;
+export default SignUpModule;

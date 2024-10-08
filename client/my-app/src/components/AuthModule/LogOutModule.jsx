@@ -1,7 +1,7 @@
 "use client";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { userLoggedOut } from "../../../../redux/features/auth/authSlice";
+import { userLoggedOut } from "../../../redux/features/auth/authSlice";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 

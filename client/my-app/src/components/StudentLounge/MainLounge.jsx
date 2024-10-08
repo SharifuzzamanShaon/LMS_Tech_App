@@ -9,12 +9,12 @@ import { BiSearch } from "react-icons/bi";
 import MyConversations from "./MyConversations";
 import ChatArea from "./ChatArea/ChatArea";
 const MainLounge = () => {
-  const [navigate, setNavigate] = useState(0);
+  const [navigate, setNavigate] = useState(1);
   return (
     <>
       <div
         className={`w-[22%] 800px:w-[310px] h-auto dark:bg-slate-900 bg-white dark:text-white shadow-sm !important dark:shadow-sm bg-opacity-90 border dark:border-[#ffffff1d] rounded-[5px] shadow-sm mt-[30px] mb-[30px] sticky
-        ${scroll ? "top-[120px]" : "top-[30px]"} left-[30px]`}
+        ${scroll ? "top-[120px]" : "top-[30px]"} left-[30px] `}
       >
         <MainLoungeNavigator setNavigate={setNavigate} />
         <div className=" rounded-[20px] p-[5px_10px] m-[10px] flex items-center shadow-[rgba(50, 50, 93, 0.25)_0px_6px_12px_-2px,rgba(0, 0, 0, 0.3)_0px_3px_7px_-3px]">

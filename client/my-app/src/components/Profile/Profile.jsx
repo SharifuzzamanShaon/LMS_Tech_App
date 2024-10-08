@@ -1,5 +1,5 @@
 "use client";
-import SidebarProfile from "@/app/components/Profile/SidebarProfile";
+import SidebarProfile from "@/components/Profile/SidebarProfile";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import UserAccount from "./UserProfilePageOptions/UserAccount";

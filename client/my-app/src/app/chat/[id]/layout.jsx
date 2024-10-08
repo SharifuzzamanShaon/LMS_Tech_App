@@ -1,9 +1,9 @@
 "use client";
-import GetUser from "@/app/components/StudentLounge/GetUser";
-import Groups from "@/app/components/StudentLounge/Groups";
-import MainLoungeNavigator from "@/app/components/StudentLounge/MainLoungeNavigator";
-import MyConversations from "@/app/components/StudentLounge/MyConversations";
-import Welcome from "@/app/components/StudentLounge/Welcome";
+import GetUser from "@/components/StudentLounge/GetUser";
+import Groups from "@/components/StudentLounge/Groups";
+import MainLoungeNavigator from "@/components/StudentLounge/MainLoungeNavigator";
+import MyConversations from "@/components/StudentLounge/MyConversations";
+import Welcome from "@/components/StudentLounge/Welcome";
 import { IconButton } from "@mui/material";
 import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";

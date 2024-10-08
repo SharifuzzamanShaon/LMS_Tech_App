@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useUpdateAvatarMutation } from "../../../../../redux/features/user/userApi";
+import { useUpdateAvatarMutation } from "../../../../redux/features/user/userApi";
 import axios from "axios";
 const UserAccount = ({ user }) => {
   const [preview, setPreview] = useState("");

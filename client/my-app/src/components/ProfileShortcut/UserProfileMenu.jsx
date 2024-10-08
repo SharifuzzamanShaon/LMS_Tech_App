@@ -6,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { userLoggedOut } from "../../../../redux/features/auth/authSlice";
+import { userLoggedOut } from "../../../redux/features/auth/authSlice";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

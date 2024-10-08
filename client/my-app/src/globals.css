@@ -88,7 +88,15 @@ body {
 .ug-list::-webkit-scrollbar {
   display: none;
 }
-
+::-webkit-scrollbar-track {
+  background: #285fd6f3;
+}
+::-webkit-scrollbar-thumb {
+  background: #eaeeed;
+}
+::-webkit-scrollbar-thumb {
+  background: #00c986;
+}
 .list-item {
   display: flex;
   align-items: center;
@@ -143,7 +151,7 @@ body {
   padding: 10px 10px;
   margin: 10px;
   border-radius: 20px;
-  max-height: 400px; 
+  max-height: 400px;
   overflow-y: auto; /* Enables vertical scrolling */
   overflow-x: hidden;
   scrollbar-width: none;
@@ -175,7 +183,7 @@ body {
   border-radius: 20px;
   width: max-content;
   margin-top: 10px;
-  
+
   display: flex;
   flex-direction: column;
 }
@@ -202,7 +210,7 @@ body {
   font-weight: lighter;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
- 
+
 .con-timeStamp {
   justify-self: flex-end;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -212,7 +220,7 @@ body {
 
 .con-lastMessage {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: lighter;
   font-style: italic;
   font-weight: 500;

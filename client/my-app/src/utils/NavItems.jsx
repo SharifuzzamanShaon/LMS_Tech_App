@@ -52,7 +52,7 @@ const NavItems = ({ activeItem, isMobile }) => {
                         : "dark:text-white text-black"
                     } block py-5 text-[18px] px-6 font-Poppins font-[400]`}
                   >
-                    {i.name}
+                    {i.name} dfd
                   </span>
                 </Link>
               );

@@ -7,11 +7,11 @@ import "../../globals.css";
 import {
   useAccessingNewUserMutation,
   useGetUserMutation,
-} from "../../../../redux/features/conversation/conversationApi";
+} from "../../../redux/features/conversation/conversationApi";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import toast from "react-hot-toast";
-import { refreshSidebarFun } from "../../../../redux/features/conversation/refreshSidebarSlice";
+import { refreshSidebarFun } from "../../../redux/features/conversation/refreshSidebarSlice";
 const GetUser = () => {
   const [getUser, { isSuccess: userSuccess, error: userErr }] =
     useGetUserMutation();

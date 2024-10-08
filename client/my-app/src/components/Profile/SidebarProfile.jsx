@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { MdOutlinePassword } from "react-icons/md";
 import { FcIdea } from "react-icons/fc";
 import { useDispatch } from "react-redux";
-import { userLoggedOut } from "../../../../redux/features/auth/authSlice";
+import { userLoggedOut } from "../../../redux/features/auth/authSlice";
 import toast from "react-hot-toast";
 import { FiLogOut } from "react-icons/fi";
 

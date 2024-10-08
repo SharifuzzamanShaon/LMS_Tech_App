@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { auth } from "../../../../firebase";
-import { useSocialAuthMutation } from "../../../../redux/features/auth/authApi";
+import { auth } from "../../../firebase";
+import { useSocialAuthMutation } from "../../../redux/features/auth/authApi";
 
 const SocialAuthentication = ({setOpen}) => {
   const [socialAuth, { isSuccess, data, error }] = useSocialAuthMutation();

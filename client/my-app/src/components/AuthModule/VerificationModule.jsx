@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { style } from "../../utils/styled/style";
 import { Button } from "@mui/material";
-import { useActivationMutation } from "../../../../redux/features/auth/authApi";
+import { useActivationMutation } from "../../../redux/features/auth/authApi";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
