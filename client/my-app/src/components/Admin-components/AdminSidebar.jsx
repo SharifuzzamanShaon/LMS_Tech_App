@@ -76,14 +76,14 @@ const AdminLayout = ({ children }) => {
 
             {/* Dropdown Menu */}
             {isCoursesOpen && (
-              <div className="ml-8 flex flex-col dark:text-white text-black">
+              <div className="ml-8  mb-4 flex flex-col dark:text-white text-black">
                 <Link href="/courses/create">
-                  <span className="mb-3 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
+                  <span className="mb-4 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
                     Create Course
                   </span>
                 </Link>
                 <Link href="/courses/manage">
-                  <span className="mb-3 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
+                  <span className="mb-4 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
                     Manage Courses
                   </span>
                 </Link>
