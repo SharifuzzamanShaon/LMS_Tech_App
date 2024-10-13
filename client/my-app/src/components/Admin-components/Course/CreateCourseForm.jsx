@@ -10,14 +10,11 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Stack,
-  TextField,
 } from "@mui/material";
 import { ErrorMessage, Field, FieldArray, useFormik } from "formik";
-import Benefits from "./BenefitsInputs";
 import { FiDelete } from "react-icons/fi";
-import Heading from "@/utils/Heading";
 import GetCourseTags from "./GetCourseTags";
+import CourseDescription from "./CourseDescription/CourseDescription";
 const Schema = Yup.object().shape({
   email: Yup.string().email("Invalid Email"),
   // .required("Please Enter your email"),
@@ -34,6 +31,7 @@ const CreateCourseForm = () => {
   const [benefits, setBenefits] = useState([{ id: Date.now() }, { value: "" }]);
   const [tags, setTags] = useState([]);
   const [level, setLevel] = useState("");
+  const [description, setDescription] = useState("");
   const handleAddInput = () => {
     if (benefits.length <= 5) {
       setBenefits([...benefits, { id: Date.now(), value: "" }]);
@@ -52,9 +50,11 @@ const CreateCourseForm = () => {
     },
     validationSchema: Schema,
     onSubmit: async (courseInfo) => {
+      const description = localStorage.getItem("desc");
       courseInfo.benefits = benefits;
       courseInfo.tags = tags;
       courseInfo.level = level;
+      courseInfo.description = description;
       console.log(courseInfo);
     },
   });
@@ -96,23 +96,10 @@ const CreateCourseForm = () => {
         </FormControl>
 
         {/* Course Description Input */}
-        <FormControl fullWidth variant="outlined">
-          <InputLabel
-            htmlFor="description"
-            className="dark:text-white text-black"
-          >
-          </InputLabel>
-          <TextField variant="outlined"  />
-          <FormHelperText
-            className="dark:text-white text-black"
-          >
-            {errors.description && touched.description ? (
-              <span className="text-red-600">{errors.description}</span>
-            ) : (
-              <span>Provide a brief description of the course</span>
-            )}
-          </FormHelperText>
-        </FormControl>
+        <CourseDescription
+          description={description}
+          setDescription={setDescription}
+        />
 
         {/* Price Input */}
         <FormControl fullWidth variant="outlined">
