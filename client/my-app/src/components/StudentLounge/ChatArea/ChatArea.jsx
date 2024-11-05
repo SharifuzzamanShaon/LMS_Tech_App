@@ -62,7 +62,6 @@ const ChatArea = () => {
 
   useEffect(() => {
     socket.on("message received", (newMsgReceived) => {
-      console.log("new Msg received");
       setDisplayMsg([...displayMsg, newMsgReceived]);
     });
   });
