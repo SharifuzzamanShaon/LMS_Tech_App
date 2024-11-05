@@ -15,12 +15,16 @@ const names = [
   "Backend",
 ];
 
-export default function GetCourseTags({tags, setTags}) {
+export default function GetCourseTags({ tags, setTags }) {
   const [selectedNames, setSelectedNames] = useState([]);
 
   return (
     <>
-      <FormControl fullWidth variant="outlined">
+      <FormControl
+        fullWidth
+        variant="outlined"
+        className="dark:text-white text-black "
+      >
         <Autocomplete
           sx={{ m: 1, width: 500 }}
           multiple
@@ -35,8 +39,8 @@ export default function GetCourseTags({tags, setTags}) {
               className="dark:text-white text-black "
               {...params}
               variant="outlined"
-              label="Multiple Autocomplete"
-              placeholder="Select Names"
+              label="Course tags"
+              placeholder="Course tags"
             />
           )}
           renderOption={(props, option, { selected }) => (

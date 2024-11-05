@@ -7,7 +7,7 @@ import persistStore from "redux-persist/es/persistStore";
 import persistReducer from "redux-persist/es/persistReducer";
 import conversationSlice from "./features/conversation/conversationSlice";
 import refreshSidebarSlice from "./features/conversation/refreshSidebarSlice";
-
+import createCourseSlice from "./features/admin/createCourseSlice";
 const persistConfig = {
   key: "auth",
   storage,
@@ -20,7 +20,8 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: persistedAuthReducer,
     conversation: conversationSlice,
-    refreshSideBar: refreshSidebarSlice
+    refreshSideBar: refreshSidebarSlice,
+    createCourseData: createCourseSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
