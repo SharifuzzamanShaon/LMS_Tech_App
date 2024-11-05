@@ -9,7 +9,7 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const authMiddleware = require("./middleware/authenticate/authMiddleware");
-
+require("dotenv").config();
 app.use(cookieParser());
 app.use(
   cors({
@@ -54,7 +54,7 @@ app.use((error, req, res, text) => {
   res.status(status).json({ success: false, message });
 });
 
-const port = process.env.SERVER_PORT;
+const port = 5000;
 const server = app.listen(port, async () => {
   console.log(`server Running at http://localhost:${port}`);
   await connectDB();
@@ -63,7 +63,7 @@ const server = app.listen(port, async () => {
 const io = require("socket.io")(server, {
   pingTimeout: 50000,
   cors: {
-    origin: [process.env.CLIENT_side_port], // Allow these HTTP methods
+    origin: [process.env.CLIENT_URL], // Allow these HTTP methods
     credentials: true,
   },
 });
