@@ -10,7 +10,6 @@ const uploadFile = async (req, res, next) => {
     // console.log(filePath);
     const image = `./uploads/${req.file.filename}`;
     const res = await uploadOnCloudinary(image);
-    console.log(res);
     res.status(200).send("File uploaded");
   } catch (error) {
     next(error);

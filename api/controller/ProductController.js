@@ -26,9 +26,7 @@ const addNewProduct = async (req, res, next) => {
 
     const buffer = Buffer.from(base64Image, "base64");
     fs.writeFileSync("outputfile", buffer);
-    console.log(buffer);
     const response = await uploadOnCloudinary(base64Image);
-    console.log(response);
 
     const newProduct = new Product({
       name,

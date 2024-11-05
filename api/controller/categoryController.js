@@ -11,7 +11,6 @@ const getCategory = async (req, res) => {
 
 const addCategory = async (req, res) => {
   const { name } = req.body;
-  console.log(typeof productId);
   const newCategory = new Category({
     name,
     // products: productId

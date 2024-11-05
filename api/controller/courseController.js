@@ -59,14 +59,12 @@ const getSingleCourse = async (req, res, next) => {
     const isCacheExist = await redis.get(id);
     if (isCacheExist) {
       res.status(200).send({ success: true, isCacheExist });
-      console.log("from redis");
     } else {
       const course = await CourseModel.findById({ _id: id }).select(
         "-courseData.videoUrl -courseData.courseData -courseData.questions -courseData.links"
       );
       res.status(200).send({ success: true, course });
       await redis.set(id, course);
-      console.log("from db");
     }
   } catch (error) {
     next(error);
@@ -143,7 +141,6 @@ const addAnswer = async (req, res, next) => {
     await course?.save();
 
     const filePath = path.join(__dirname, "../views/mail/replyQuestion.ejs");
-    console.log(questionContent.user.username);
     const data = {
       name: questionContent.user.username,
     };
