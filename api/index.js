@@ -13,7 +13,7 @@ const authMiddleware = require("./middleware/authenticate/authMiddleware");
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000", // This should match the address of your frontend
+    origin: [process.env.CLIENT_URL], // This should match the address of your frontend
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // Enable this if you need to handle cookies
   })
@@ -54,16 +54,16 @@ app.use((error, req, res, text) => {
   res.status(status).json({ success: false, message });
 });
 
-const port = 5000;
+const port = process.env.SERVER_PORT;
 const server = app.listen(port, async () => {
-  console.log("server Running at http://localhost:5000");
+  console.log(`server Running at http://localhost:${port}`);
   await connectDB();
   console.log("DB connected");
 });
 const io = require("socket.io")(server, {
   pingTimeout: 50000,
   cors: {
-    origin: "http://localhost:3000", // Allow these HTTP methods
+    origin: [process.env.CLIENT_side_port], // Allow these HTTP methods
     credentials: true,
   },
 });
