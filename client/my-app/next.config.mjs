@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: [process.env.External_Domain_NextJsAccess], // Add the external image domain here
-      },
+  images: {
+    domains: process.env.NEXT_PUBLIC_IMAGE_DOMAINS
+      ? process.env.NEXT_PUBLIC_IMAGE_DOMAINS.split(",")
+      : [],
+  },
 };
 
 export default nextConfig;
