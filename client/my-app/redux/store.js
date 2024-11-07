@@ -25,7 +25,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
-  // devTools: process.env.NODE_ENV === "development",
+  devTools: process.env.NODE_ENV,
 });
 
 export const persistor = persistStore(store);

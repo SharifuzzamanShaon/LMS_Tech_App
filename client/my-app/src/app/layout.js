@@ -2,7 +2,7 @@
 import "../globals.css";
 // import { Poppins } from "next/font/google";
 // import { Josefin_Sans } from "next/font/google";
-// import ThemeProvider from "../utils/theme-provider";
+import ThemeProvider from "../utils/theme-provider";
 import { Providers } from "../Provider";
 import { Toaster } from "react-hot-toast";
 
