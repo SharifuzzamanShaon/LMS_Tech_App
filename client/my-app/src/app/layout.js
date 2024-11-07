@@ -6,16 +6,16 @@ import ThemeProvider from "../utils/theme-provider";
 import { Providers } from "../Provider";
 import { Toaster } from "react-hot-toast";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-Poppins",
-});
-const josefin = Josefin_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-Josefin",
-});
+// const poppins = Poppins({
+//   subsets: ["latin"],
+//   weight: ["400", "500", "600", "700"],
+//   variable: "--font-Poppins",
+// });
+// const josefin = Josefin_Sans({
+//   subsets: ["latin"],
+//   weight: ["400", "500", "600", "700"],
+//   variable: "--font-Josefin",
+// });
 
 export default function RootLayout({ children }) {
   return (
