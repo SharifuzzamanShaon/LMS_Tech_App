@@ -13,7 +13,7 @@ require("dotenv").config();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL], // This should match the address of your frontend
+    origin: process.env.CLIENT_URLS ? process.env.CLIENT_URLS.split(',') : [], // This should match the address of your frontend
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // Enable this if you need to handle cookies
   })
