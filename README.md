@@ -60,4 +60,20 @@ A modern learning management system built with Node.js, Next.js, MongoDB, and Re
     
     cd client/my-app
     npm run dev
+## Additional Information
 
+- **Real-Time Communication**: This project includes real-time communication features developed with [Socket.IO](https://socket.io/) for enhanced interactivity and seamless data communication.
+- **User Authentication**: Supports email and OTP verification to ensure account security.
+- **UI Frameworks**: Built with [Tailwind CSS](https://tailwindcss.com/) and [Material UI](https://mui.com/) for a responsive and visually engaging interface.
+
+## Deployment Link
+
+Access the live application here: [SkillSage Live Application](https://skillsage-6v3g.onrender.com)
+
+## Note
+
+This project is continuously evolving, and new features will be added in future updates.
+
+---
+
+Thank you for exploring
