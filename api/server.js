@@ -58,7 +58,6 @@ const port =process.env.SERVER_PORT || 5000;
 const server = app.listen(port, async () => {
   console.log(`server Running at http://localhost:${port}`);
   await connectDB();
-  console.log("DB connected");
 });
 const io = require("socket.io")(server, {
   pingTimeout: 50000,
