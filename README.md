@@ -4,11 +4,14 @@ A modern learning management system built with Node.js, Next.js, MongoDB, and Re
 
 ## Features
 
-- **User Management:** Handles user roles, authentication, and authorization.
-- **Course Management:** Create, update, and manage courses and content.
-- **Real-time Notifications:** Keeps users updated with the latest information.
-- **Efficient Caching:** Utilizes Redis for improved performance and scalability.
-- **Modern UI:** Built with Next.js for a responsive and engaging user experience.
+- **User Management**: Handles user roles, authentication, and authorization.
+- **Course Management**: Enables creation, updating, and management of courses and content.
+- **Real-time Notifications**: Keeps users updated with the latest information using WebSockets.
+- **Efficient Caching**: Utilizes Redis for improved performance and scalability.
+- **Modern UI**: Built with Next.js for a responsive and engaging user experience.
+- **Chatting Features**: Real-time chat functionality implemented with Socket.IO.
+- **Email & OTP Verification**: Ensures secure account verification.
+- **Responsive Design**: Built with Tailwind CSS and Material UI for an intuitive user interface.
 
 ## Installation
    ### Backend
@@ -32,14 +35,14 @@ A modern learning management system built with Node.js, Next.js, MongoDB, and Re
 
    
     SMTP_HOST = smtp-relay.brevo.com
-    SMTP_USER = mdshaon2200@gmail.com
-    SMTP_PASSWORD = hbfz wasz ykcv irla
+    SMTP_USER = md*****@gmail.com
+    SMTP_PASSWORD = ** *** *** *
 
     FROM_EMAIL = md********@gmail.com
     CLIENT_URL = http://*******
 
     CLOUD_NAME = daaxwtbba
-    API_KEY = 416624678919151
+    API_KEY = ************
     API_SECRET = CT9o3mEVvEQ0Dp1kbNNMFfg-BMI
     REDIS_URL = 'redis://   default:Ab****YzZmJlMmVkYzQ0ZjNlYjMyZjFiM2I4N2FmMzdhYXAxMA@strong-rabbit-***805.upstash.io:6379'
 
@@ -57,4 +60,20 @@ A modern learning management system built with Node.js, Next.js, MongoDB, and Re
     
     cd client/my-app
     npm run dev
+## Additional Information
 
+- **Real-Time Communication**: This project includes real-time communication features developed with [Socket.IO](https://socket.io/) for enhanced interactivity and seamless data communication.
+- **User Authentication**: Supports email and OTP verification to ensure account security.
+- **UI Frameworks**: Built with [Tailwind CSS](https://tailwindcss.com/) and [Material UI](https://mui.com/) for a responsive and visually engaging interface.
+
+## Deployment Link
+
+Access the live application here: [SkillSage Live Application](https://skillsage-6v3g.onrender.com)
+
+## Note
+
+This project is continuously evolving, and new features will be added in future updates.
+
+---
+
+Thank you for exploring
